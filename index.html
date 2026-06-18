@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMO YTMP3 Converter</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Fonts: Inter and Fira Code for IDE look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+  <div class="app-container">
+    <div class="window-header">
+      <span class="window-title">BMO YTMP3 Converter</span>
+      <div class="window-controls">
+        <button id="theme-btn" class="theme-btn" title="Switch Theme">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="6.5" cy="6.5" r="6.5" fill="#9CA3AF" />
+          </svg>
+        </button>
+        <button id="minimize-btn" class="minimize-btn" title="Minimize">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="6.5" cy="6.5" r="6.5" fill="#7097CE" />
+            <line x1="3" y1="6.65" x2="10" y2="6.65" stroke="#4D6381" stroke-width="0.7" />
+          </svg>
+        </button>
+        <button id="close-btn" class="close-btn" title="Close">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="6.5" cy="6.5" r="6.5" fill="#D46A67" />
+            <line y1="-0.4" x2="6.3248" y2="-0.4" transform="matrix(0.711485 0.702701 -0.711485 0.702701 4 5)"
+              stroke="#994B48" stroke-width="0.8" />
+            <line y1="-0.4" x2="6.3248" y2="-0.4" transform="matrix(-0.711485 0.702701 0.711485 0.702701 9 5)"
+              stroke="#994B48" stroke-width="0.8" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="top-row">
+        <div class="mascot-container">
+          <svg width="120" height="105" viewBox="0 0 120 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect class="mascot-bg" width="120" height="105" rx="10" fill="#E7F8F3" />
+            <path id="mascot-mouth-smile" transform="translate(50.8, 61.4)"
+              d="M0.273926 0.41832C8.57223 5.85161 15.7316 2.68219 18.2739 0.41832" stroke="black" />
+            <circle id="mascot-mouth-open" cx="60.1" cy="63.5" r="5" fill="black" />
+            <ellipse cx="43.9535" cy="42.3256" rx="2.44186" ry="6.51163" fill="black" />
+            <ellipse cx="74.8838" cy="43.1395" rx="2.44186" ry="6.51163" fill="black" />
+          </svg>
+        </div>
+        <div class="speech-bubble-container">
+          <svg class="speech-bubble-bg" width="153" height="57" viewBox="0 0 153 57" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect x="17.1313" width="135" height="52" rx="10" fill="#FCFFFE" />
+            <path
+              d="M22.1313 35C22.1313 35 16.4221 43.2395 11.1313 46.5C7.5506 48.7066 1.13135 50.5 1.13135 50.5C1.13135 50.5 8.00204 55.4853 13.1313 56C17.8943 56.478 20.7678 55.4683 25.1313 53.5C28.0937 52.1638 29.6435 51.091 32.1313 49C35.9598 45.7822 40.1313 39 40.1313 39L22.1313 35Z"
+              fill="white" stroke="white" />
+          </svg>
+          <div class="terminal-overlay" id="log-console">
+            <div class="log-line system">[System] Welcome.</div>
+          </div>
+        </div>
+      </div>
+      <div class="middle-row">
+        <div class="field-group">
+          <label class="field-label" for="youtube-url">YouTube Link</label>
+          <div class="input-container">
+            <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off">
+            <button id="clear-btn" class="clear-input-btn" title="Clear input">✕</button>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-row">
+        <div class="field-group">
+          <label class="field-label">Save Folder</label>
+          <div class="folder-picker-wrapper-new">
+            <div id="selected-path" class="save-folder-display" title="Click to select save folder">No folder selected
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Row at Bottom -->
+      <div class="actions-row">
+        <div class="button-group-new">
+          <button id="convert-btn" class="circle-btn convert" title="Convert to MP3" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            </svg>
+          </button>
+          <button id="cancel-btn" class="circle-btn cancel" title="Cancel Process" style="display: none;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+            </svg>
+          </button>
+          <button id="open-folder-btn" class="circle-btn open-folder" title="Open Folder" style="display: none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </button>
+          <button id="clear-logs-btn" class="circle-btn clear-logs" title="Clear Logs">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full Width Progress Bar at the Very Bottom -->
+    <div class="progress-section-new hidden" id="progress-container">
+      <div class="progress-bar-track-new">
+        <div id="progress-bar-fill" class="progress-bar-fill-new"></div>
+        <span class="progress-status-inner" id="progress-status">Ready</span>
+        <span id="progress-percent" class="progress-percent-inner">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+
+</html>
